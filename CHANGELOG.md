@@ -1,5 +1,8 @@
 # Changelog
 
+## r12 ( 27 Nov 21)
+* Update Visual C++ Redistributales 2015-2022
+
 ## r11 (2020/12/13)
 
 * Update Visual C++ Redistributables 2015-2019 (14.28.29325)

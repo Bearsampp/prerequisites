@@ -1,8 +1,8 @@
 #define appId = "@PREREQ_ID@"
 #define appName "@PREREQ_NAME@"
 #define appVersion "@PREREQ_RELEASE@"
-#define appPublisher "CrazyMax"
-#define appURL "https://bearsampp.io"
+#define appPublisher "N6REJ"
+#define appURL "https://https://bearsampp.github.io/"
 #define currentYear GetDateTimeString('yyyy', '', '');
 
 [Setup]
@@ -16,11 +16,11 @@ AppSupportURL={#appURL}
 AppUpdatesURL={#appURL}
 
 WizardImageFile=setup.bmp
-WizardSmallImageFile=setup-mini.bmp
+WizardSmallImageFile=panda-icon.ico
 DisableWelcomePage=no
 ShowLanguageDialog=yes
 InfoBeforeFile=before.txt
-SetupIconFile=bearsampp.ico
+SetupIconFile=panda-icon.ico
 
 Compression=lzma/max
 SolidCompression=yes
@@ -42,18 +42,13 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Source: "src\*"; DestDir: "{tmp}\{#appId}"; Flags: ignoreversion recursesubdirs createallsubdirs deleteafterinstall
 
 [Run]
-Filename: "{tmp}\{#appId}\vcredist_2005_SP1\vcredist_x86.exe"; Parameters: "/Q"; StatusMsg: Installing Visual C++ 2005 SP1 Runtimes x86 (VC6)...; Flags: runhidden waituntilterminated
-Filename: "{tmp}\{#appId}\vcredist_2005_SP1\vcredist_x64.exe"; Parameters: "/Q"; StatusMsg: Installing Visual C++ 2005 SP1 Runtimes x64 (VC6)...; Check: IsWin64; Flags: runhidden waituntilterminated
-Filename: "{tmp}\{#appId}\vcredist_2008_SP1\vcredist_x86.exe"; Parameters: "/q"; StatusMsg: Installing Visual C++ 2008 SP1 Runtimes x86 (VC9)...; Flags: runhidden waituntilterminated
-Filename: "{tmp}\{#appId}\vcredist_2008_SP1\vcredist_x64.exe"; Parameters: "/q"; StatusMsg: Installing Visual C++ 2008 SP1 Runtimes x64 (VC9)...; Check: IsWin64; Flags: runhidden waituntilterminated
-Filename: "{tmp}\{#appId}\vcredist_2010_SP1\vcredist_x86.exe"; Parameters: "/q /norestart"; StatusMsg: Installing Visual C++ 2010 SP1 Runtimes x86 (VC10)...; Flags: runhidden waituntilterminated
-Filename: "{tmp}\{#appId}\vcredist_2010_SP1\vcredist_x64.exe"; Parameters: "/q /norestart"; StatusMsg: Installing Visual C++ 2010 SP1 Runtimes x64 (VC10)...; Check: IsWin64; Flags: runhidden waituntilterminated
 Filename: "{tmp}\{#appId}\vcredist_2012_UPD4\vcredist_x86.exe"; Parameters: "/quiet /norestart"; StatusMsg: Installing Visual C++ 2012 UPD4 Runtimes x86 (VC11)...; Flags: runhidden waituntilterminated
 Filename: "{tmp}\{#appId}\vcredist_2012_UPD4\vcredist_x64.exe"; Parameters: "/quiet /norestart"; StatusMsg: Installing Visual C++ 2012 UPD4 Runtimes x64 (VC11)...; Check: IsWin64; Flags: runhidden waituntilterminated
 Filename: "{tmp}\{#appId}\vcredist_2013\vcredist_x86.exe"; Parameters: "/quiet /norestart"; StatusMsg: Installing Visual C++ 2013 Runtimes x86 (VC13)...; Flags: runhidden waituntilterminated
 Filename: "{tmp}\{#appId}\vcredist_2013\vcredist_x64.exe"; Parameters: "/quiet /norestart"; StatusMsg: Installing Visual C++ 2013 Runtimes x64 (VC13)...; Check: IsWin64; Flags: runhidden waituntilterminated
 Filename: "{tmp}\{#appId}\vcredist_2015_2019\vc_redist.x86.exe"; Parameters: "/quiet /norestart"; StatusMsg: Installing Visual C++ 2015-2019 Runtimes x86 (VC14 VC15 VC16)...; Flags: runhidden waituntilterminated
 Filename: "{tmp}\{#appId}\vcredist_2015_2019\vc_redist.x64.exe"; Parameters: "/quiet /norestart"; StatusMsg: Installing Visual C++ 2015-2019 Runtimes x64 (VC14 VC15 VC16)...; Check: IsWin64; Flags: runhidden waituntilterminated
+Filename: "{tmp}\{#appId}\vcredist_2015_2022\vc_redist.x64.exe"; Parameters: "/quiet /norestart"; StatusMsg: Installing Visual C++ 2015-2022 Runtimes x64 (VC14 VC15 VC16 VC17)...; Check: IsWin64; Flags: runhidden waituntilterminated
 Filename: "wusa.exe"; Parameters: """{tmp}\{#appId}\KB2731284\Windows6.1-KB2731284-v3-x86.msu"" /quiet /norestart"; StatusMsg: Installing KB2731284 x86...; Check: InstallKB2731284x86; Flags: runhidden waituntilterminated
 Filename: "wusa.exe"; Parameters: """{tmp}\{#appId}\KB2731284\Windows6.1-KB2731284-v3-x86.msu"" /quiet /norestart"; StatusMsg: Installing KB2731284 x64...; Check: InstallKB2731284x64; Flags: runhidden waituntilterminated
 Filename: "{tmp}\{#appId}\KB838079\WindowsXP-KB838079-SupportTools-ENU.exe"; Parameters: "/Q /C:""msiexec.exe /qb /i suptools.msi REBOOT=ReallySuppress ADDLOCAL=ALL"""; StatusMsg: Installing KB838079...; Check: InstallKB838079; Flags: runhidden waituntilterminated
