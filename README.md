@@ -9,7 +9,7 @@
 </p>
 
 ## About
-This a sub-repo involving prerequisites required before any use of [bearsampp project](https://github.com/bearsampp/bearsampp).
+This a sub-repo involving prerequisites required before any use of [bearsampp project](https://github.com/bearsampp).
 <br />
 Issues must be reported on [Bearsampp repository](https://github.com/bearsampp/bearsampp/issues).
 
