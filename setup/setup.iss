@@ -16,11 +16,11 @@ AppSupportURL={#appURL}
 AppUpdatesURL={#appURL}
 
 WizardImageFile=setup.bmp
-WizardSmallImageFile=panda-icon.bmp
+WizardSmallImageFile=panda-logo.bmp
 DisableWelcomePage=no
 ShowLanguageDialog=yes
 InfoBeforeFile=before.txt
-SetupIconFile=panda-icon.bmp
+SetupIconFile=panda-icon.ico
 
 Compression=lzma/max
 SolidCompression=yes
