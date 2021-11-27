@@ -17,3 +17,8 @@
 /.idea/php.xml
 /.idea/prerequisites.iml
 /.idea/vcs.xml
+
+# Visual Studio
+/*.vs
+/*.vsc
+/.vs
