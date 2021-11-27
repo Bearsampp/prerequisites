@@ -2,7 +2,7 @@
 #define appName "@PREREQ_NAME@"
 #define appVersion "@PREREQ_RELEASE@"
 #define appPublisher "CrazyMax"
-#define appURL "https://neard.io"
+#define appURL "https://bearsampp.io"
 #define currentYear GetDateTimeString('yyyy', '', '');
 
 [Setup]
@@ -20,7 +20,7 @@ WizardSmallImageFile=setup-mini.bmp
 DisableWelcomePage=no
 ShowLanguageDialog=yes
 InfoBeforeFile=before.txt
-SetupIconFile=neard.ico
+SetupIconFile=bearsampp.ico
 
 Compression=lzma/max
 SolidCompression=yes

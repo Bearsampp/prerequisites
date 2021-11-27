@@ -8,6 +8,12 @@
 # Jetbrains
 /*.iml
 
-# Neard
+# bearsampp
 /.dev
 /setup/*.pspimage
+/.idea/.gitignore
+/.idea/deployment.xml
+/.idea/modules.xml
+/.idea/php.xml
+/.idea/prerequisites.iml
+/.idea/vcs.xml

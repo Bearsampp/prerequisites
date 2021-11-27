@@ -6,11 +6,11 @@
 
 ## r10 (2019/05/21)
 
-* Add Visual C++ Redistributables 2015-2019 (VC14 VC15 VC16) (neard/neard#410)
+* Add Visual C++ Redistributables 2015-2019 (VC14 VC15 VC16) (bearsampp/bearsampp#410)
 
 ## r9 (2017/07/11)
 
-* Add Visual C++ Redistributables 2017 (VC15) (neard/neard#283)
+* Add Visual C++ Redistributables 2017 (VC15) (bearsampp/bearsampp#283)
 * Upgrade Visual C++ Redistributables 2015 Update 3
 
 ## r8 (2017/03/12)
@@ -21,10 +21,10 @@
 
 ## r7 (2017/02/13)
 
-* Add KB2731284 that fix an issue with memory mapped files on Windows 7 impacting MongoDB (neard/neard#166)
+* Add KB2731284 that fix an issue with memory mapped files on Windows 7 impacting MongoDB (bearsampp/bearsampp#166)
 * Bug while installing KB838079 on Windows XP
 * Bug while installing Visual C++ 2008 SP1 Runtimes
-* Rename and reset neard-misc repository
+* Rename and reset bearsampp-misc repository
 
 ## r6 (2016/12/19)
 
@@ -40,7 +40,7 @@
 
 ## r3 (2016/10/22)
 
-* Adding Visual C++ Redistributables 2013 (neard/neard#143)
+* Adding Visual C++ Redistributables 2013 (bearsampp/bearsampp#143)
 * Add ANT build tools
 
 ## r2 (2015/12/13)

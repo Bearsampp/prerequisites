@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="prerequisites" basedir=".">
-  
+
   <dirname property="project.basedir" file="${ant.file.prerequisites}"/>
   <property name="root.dir" location="${project.basedir}/.."/>
   <property name="build.properties" value="${project.basedir}/build.properties"/>
   <property file="${build.properties}"/>
-  
-  <!-- Neard dev -->
+
+  <!-- bearsampp dev -->
   <property name="dev.path" location="${root.dir}/dev"/>
   <fail unless="dev.path" message="Project 'dev' not found in ${dev.path}"/>
-  <echo message="Neard dev found in ${dev.path}" level="debug"/> 
-  
+  <echo message="bearsampp dev found in ${dev.path}" level="debug"/>
+
   <!-- Import build-commons.xml -->
   <import file="${dev.path}/build/build-commons.xml"/>
-  
+
   <target name="release" depends="init, load.lib">
     <property name="prerequisites.src" location="${project.basedir}/src"/>
     <property name="prerequisites.setup" location="${project.basedir}/setup"/>
     <property name="prerequisites.tmp" location="${build.tmp.path}/prerequisites"/>
     <property name="prerequisites.dest" location="${build.path}/prerequisites"/>
-    
+
     <echo message="Copying files"/>
     <delete dir="${prerequisites.tmp}"/>
     <mkdir dir="${prerequisites.tmp}"/>
@@ -36,7 +36,7 @@
         <filter token="PREREQ_NAME" value="${prerequisites.name}"/>
       </filterset>
     </copy>
-    
+
     <echo message="Build setup"/>
     <exec executable="${innosetup.path}/app/ISCC.exe" dir="${prerequisites.tmp}" failonerror="true">
       <arg value="/O${prerequisites.dest}"/>
@@ -45,5 +45,5 @@
     </exec>
     <hashfile file="${prerequisites.dest}/${prerequisites.setupname}.exe"/>
   </target>
-  
+
 </project>
