@@ -1,4 +1,4 @@
-This setup provides all the prerequisites required for bearsampp :
+This setup provides all the prerequisites required for Bearsampp :
 
 - Visual C++ 2012 UPD4 Runtimes (VC11)
 - Visual C++ 2013 Runtimes (VC13)
@@ -7,4 +7,4 @@ This setup provides all the prerequisites required for bearsampp :
 - KB838079 : Integrated for Windows XP to install Windows Support Tools.
 - KB2731284 : Fix "33" DOS error code when memory memory-mapped files are cleaned by using the FlushViewOfFile() function in Windows 7.
 
-Website : https://bearsampp.github.io
+Website : https://bearsampp.com

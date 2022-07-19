@@ -2,7 +2,7 @@
 #define appName "@PREREQ_NAME@"
 #define appVersion "@PREREQ_RELEASE@"
 #define appPublisher "N6REJ"
-#define appURL "https://https://bearsampp.github.io/"
+#define appURL "https://bearsampp.com/"
 #define currentYear GetDateTimeString('yyyy', '', '');
 
 [Setup]
@@ -15,12 +15,12 @@ AppPublisherURL={#appURL}
 AppSupportURL={#appURL}
 AppUpdatesURL={#appURL}
 
-WizardImageFile=setup.bmp
-WizardSmallImageFile=bearsampp-logo.bmp
+WizardImageFile=prerequisites.png
+WizardSmallImageFile=bearsampp.bmp
 DisableWelcomePage=no
 ShowLanguageDialog=yes
 InfoBeforeFile=before.txt
-SetupIconFile=bearsampp-icon.ico
+SetupIconFile=bearsampp.ico
 
 Compression=lzma/max
 SolidCompression=yes
