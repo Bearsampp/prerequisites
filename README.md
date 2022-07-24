@@ -1,4 +1,4 @@
-<p align="center"><a href="https://bearsampp.github.io" target="_blank"><img width="100" src="https://github.com/Bearsampp/prerequisites/blob/main/img/Bearsampp-logo.png"></a></p>
+<p align="center"><a href="https://bearsampp.com" target="_blank"><img width="100" src="https://github.com/Bearsampp/prerequisites/blob/main/img/Bearsampp-logo.png"></a></p>
 <p align="center">Bearsampp Prerequisites Package</p>
 
 <p align="center">
@@ -9,7 +9,7 @@
 </p>
 
 ## About
-This a sub-repo involving prerequisites required before any use of [bearsampp project](https://github.com/bearsampp).
+This a sub-repo involving prerequisites required before any use of [Bearsampp project](https://github.com/bearsampp).
 <br />
 Issues must be reported on [Bearsampp repository](https://github.com/bearsampp/bearsampp/issues).
 
