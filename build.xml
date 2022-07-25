@@ -9,7 +9,7 @@
   <!-- bearsampp dev -->
   <property name="dev.path" location="${root.dir}/dev"/>
   <fail unless="dev.path" message="Project 'dev' not found in ${dev.path}"/>
-  <echo message="bearsampp dev found in ${dev.path}" level="debug"/>
+  <echo message="Bearsampp dev found in ${dev.path}" level="debug"/>
 
   <!-- Import build-commons.xml -->
   <import file="${dev.path}/build/build-commons.xml"/>
