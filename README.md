@@ -1,4 +1,4 @@
-<p align="center"><a href="https://bearsampp.com" target="_blank"><img width="100" src="https://github.com/Bearsampp/prerequisites/blob/main/img/Bearsampp-logo.png"></a></p>
+<p align="center"><a href="https://bearsampp.com" target="_blank"><img width="250" src="https://github.com/Bearsampp/prerequisites/blob/main/img/Bearsampp-logo.svg"></a></p>
 <p align="center">Bearsampp Prerequisites Package</p>
 
 <p align="center">
