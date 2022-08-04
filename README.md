@@ -28,4 +28,4 @@ This package provides all the Visual C++ Redistributables required for Bearsampp
 * [KB2731284](http://support.microsoft.com/kb/2731284) : Fix "33" DOS error code when memory memory-mapped files are cleaned by using the FlushViewOfFile() function in Windows 7.
 
 ## License
-LGPL-3.0. See `LICENSE` for more details.<br />
+GPL-3.0. See `LICENSE` for more details.<br />
