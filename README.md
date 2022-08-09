@@ -14,12 +14,10 @@ This a sub-repo involving prerequisites required before any use of [Bearsampp pr
 Issues must be reported on [Bearsampp repository](https://github.com/bearsampp/bearsampp/issues).
 
 ### Visual C++ Redistributables
-The MSVC runtime libraries VC9, VC10, VC11 are no longer supported by Microsoft.<br />
-Runtimes VC13, VC14 are required for PHP 7, Apache 2.4.17 and PostgreSQL.<br />
+The MSVC runtime libraries VC13, VC14 are required for PHP 7, Apache 2.4.17 and PostgreSQL.<br />
 Runtimes vc15 vc16 & vc17 are required for php8, apache 2.4.51 and the latest Postgresql.<br>
-This package provides all the Visual C++ Redistributables required for Bearsampp :
+This package provides all the Visual C++ Redistributable required for Bearsampp :
 
-* Visual C++ 2012 UPD4 Runtimes (VC11) ([x86 / x64](http://www.microsoft.com/en-US/download/details.aspx?id=30679))
 * Visual C++ 2013 Runtimes (VC13) ([x86 / x64](https://www.microsoft.com/en-US/download/details.aspx?id=40784))
 * Visual C++ 2015-2022 Runtimes (VC14 VC15 VC16 vc17) ([x86](https://aka.ms/vs/17/release/vc_redist.x86.exe) / [x64](https://aka.ms/vs/17/release/vc_redist.x64.exe))
 
