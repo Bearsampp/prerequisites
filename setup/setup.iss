@@ -6,7 +6,7 @@
 #define currentYear GetDateTimeString('yyyy', '', '');
 
 [Setup]
-AppId={{8547d731-4a07-40c8-b6f8-7badf8f8a780}
+AppId={{b7cff8a2-a8e1-4c2b-a5b4-33d8e777c214}
 AppName={#appName}
 AppVersion={#appVersion}
 ;AppVerName={#appName} {#appVersion}
@@ -42,8 +42,6 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Source: "src\*"; DestDir: "{tmp}\{#appId}"; Flags: ignoreversion recursesubdirs createallsubdirs deleteafterinstall
 
 [Run]
-Filename: "{tmp}\{#appId}\vcredist_2012_UPD4\vcredist_x86.exe"; Parameters: "/quiet /norestart"; StatusMsg: Installing Visual C++ 2012 UPD4 Runtimes x86 (VC11)...; Flags: runhidden waituntilterminated
-Filename: "{tmp}\{#appId}\vcredist_2012_UPD4\vcredist_x64.exe"; Parameters: "/quiet /norestart"; StatusMsg: Installing Visual C++ 2012 UPD4 Runtimes x64 (VC11)...; Check: IsWin64; Flags: runhidden waituntilterminated
 Filename: "{tmp}\{#appId}\vcredist_2013\vcredist_x86.exe"; Parameters: "/quiet /norestart"; StatusMsg: Installing Visual C++ 2013 Runtimes x86 (VC13)...; Flags: runhidden waituntilterminated
 Filename: "{tmp}\{#appId}\vcredist_2013\vcredist_x64.exe"; Parameters: "/quiet /norestart"; StatusMsg: Installing Visual C++ 2013 Runtimes x64 (VC13)...; Check: IsWin64; Flags: runhidden waituntilterminated
 Filename: "{tmp}\{#appId}\vcredist_2015_2019\vc_redist.x86.exe"; Parameters: "/quiet /norestart"; StatusMsg: Installing Visual C++ 2015-2019 Runtimes x86 (VC14 VC15 VC16)...; Flags: runhidden waituntilterminated
