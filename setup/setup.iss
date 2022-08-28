@@ -16,11 +16,11 @@ AppSupportURL={#appURL}
 AppUpdatesURL={#appURL}
 
 WizardImageFile=prerequisites.bmp
-WizardSmallImageFile=Bearsampp.bmp
+WizardSmallImageFile=bearsampp.bmp
 DisableWelcomePage=no
 ShowLanguageDialog=yes
 InfoBeforeFile=before.txt
-SetupIconFile=Bearsampp.ico
+SetupIconFile=bearsampp.ico
 
 Compression=lzma/max
 SolidCompression=yes
