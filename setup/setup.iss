@@ -44,9 +44,8 @@ Source: "src\*"; DestDir: "{tmp}\{#appId}"; Flags: ignoreversion recursesubdirs 
 [Run]
 Filename: "{tmp}\{#appId}\vcredist_2013\vcredist_x86.exe"; Parameters: "/quiet /norestart"; StatusMsg: Installing Visual C++ 2013 Runtimes x86 (VC13)...; Flags: runhidden waituntilterminated
 Filename: "{tmp}\{#appId}\vcredist_2013\vcredist_x64.exe"; Parameters: "/quiet /norestart"; StatusMsg: Installing Visual C++ 2013 Runtimes x64 (VC13)...; Check: IsWin64; Flags: runhidden waituntilterminated
-Filename: "{tmp}\{#appId}\vcredist_2015_2019\vc_redist.x86.exe"; Parameters: "/quiet /norestart"; StatusMsg: Installing Visual C++ 2015-2019 Runtimes x86 (VC14 VC15 VC16)...; Flags: runhidden waituntilterminated
-Filename: "{tmp}\{#appId}\vcredist_2015_2019\vc_redist.x64.exe"; Parameters: "/quiet /norestart"; StatusMsg: Installing Visual C++ 2015-2019 Runtimes x64 (VC14 VC15 VC16)...; Check: IsWin64; Flags: runhidden waituntilterminated
 Filename: "{tmp}\{#appId}\vcredist_2015_2022\vc_redist.x64.exe"; Parameters: "/quiet /norestart"; StatusMsg: Installing Visual C++ 2015-2022 Runtimes x64 (VC14 VC15 VC16 VC17)...; Check: IsWin64; Flags: runhidden waituntilterminated
+Filename: "{tmp}\{#appId}\vcredist_2015_2022\vc_redist.x86.exe"; Parameters: "/quiet /norestart"; StatusMsg: Installing Visual C++ 2015-2022 Runtimes x86 (VC14 VC15 VC16 VC17)...; Check: IsWin64; Flags: runhidden waituntilterminated
 Filename: "{tmp}\{#appId}\vcredist\VisualCppRedist_AIO_x86_x64.exe"; Parameters: "/quiet /norestart"; StatusMsg: Installing Visual C++ 2022 Redistributable - 14.40.33721.2...; Check: IsWin64; Flags: runhidden waituntilterminated
 
 [Code]
