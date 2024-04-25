@@ -10,8 +10,5 @@
 .vs/
 .vsc/
 
-# Exempt bin since its for temp use only.
-/bin/
-
 # ignore "current" directories
 /**/current
