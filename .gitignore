@@ -3,12 +3,18 @@
 /.idea
 
 # Bearsampp
-/.dev
+/tmp/*
+/core/tmp/*
+/logs/*
+
+# ignore "current" directories
+/**/current
+/bin/**/data
+
+# Exempt bin since its for temp use only.
+/bin/
 
 # Visual Studio
 .vscode/
 .vs/
 .vsc/
-
-# ignore "current" directories
-/**/current
