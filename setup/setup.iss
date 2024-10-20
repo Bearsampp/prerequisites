@@ -41,9 +41,16 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 [Files]
 Source: "src\*"; DestDir: "{tmp}\{#appId}"; Flags: ignoreversion recursesubdirs createallsubdirs deleteafterinstall
 
+; Add the 32-bit MSVCR110.dll to SysWOW64
+Source: "src\msvcr\MSVCR110.dll-32-Bit\msvcr110.dll"; DestDir: "{syswow64}"; Flags: ignoreversion  onlyifdoesntexist
+
+; Add the 64-bit MSVCR110.dll to System32
+Source: "src\msvcr\MSVCR110.dll-64-Bit\msvcr110.dll"; DestDir: "{sys}"; Flags: ignoreversion  onlyifdoesntexist
+
 [Run]
 Filename: "{tmp}\{#appId}\vcredist_2015_2022\vc_redist.x86.exe"; Parameters: "/passive /norestart"; StatusMsg: Installing Visual C++ 2015-2022 Runtimes x86 (VC14 VC15 VC16 VC17)...; Flags: runhidden waituntilterminated
 Filename: "{tmp}\{#appId}\vcredist_2015_2022\vc_redist.x64.exe"; Parameters: "/passive /norestart"; StatusMsg: Installing Visual C++ 2015-2022 Runtimes x64 (VC14 VC15 VC16 VC17)...; Check: IsWin64; Flags: runhidden waituntilterminated
+
 
 [Code]
 
