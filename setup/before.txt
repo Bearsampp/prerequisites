@@ -1,6 +1,5 @@
 This setup provides all the prerequisites required for Bearsampp :
 
-- MSCVR110.dll x86/x64
 - Visual C++ 2015-2022 Runtimes (VC14 VC15 VC16 VC17)
 
 Website : https://bearsampp.com
