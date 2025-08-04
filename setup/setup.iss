@@ -42,8 +42,8 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Source: "src\*"; DestDir: "{tmp}\{#appId}"; Flags: ignoreversion recursesubdirs createallsubdirs deleteafterinstall
 
 [Run]
-Filename: "{tmp}\{#appId}\vcredist_2015_2022\vc_redist.x86.exe"; Parameters: "/passive /norestart"; StatusMsg: Installing Visual C++ 2015-2022 Runtimes x86 (VC14 VC15 VC16 VC17)...; Flags: runhidden waituntilterminated
-Filename: "{tmp}\{#appId}\vcredist_2015_2022\vc_redist.x64.exe"; Parameters: "/passive /norestart"; StatusMsg: Installing Visual C++ 2015-2022 Runtimes x64 (VC14 VC15 VC16 VC17)...; Check: IsWin64; Flags: runhidden waituntilterminated
+Filename: "{tmp}\{#appId}\vcredist_2015_2022\vc_redist.x86.exe"; Parameters: "/passive /norestart"; StatusMsg: Installing Visual C++ 2015-2022 Runtimes x86 (VC15 VC16 VC17)...; Flags: runhidden waituntilterminated
+Filename: "{tmp}\{#appId}\vcredist_2015_2022\vc_redist.x64.exe"; Parameters: "/passive /norestart"; StatusMsg: Installing Visual C++ 2015-2022 Runtimes x64 (VC15 VC16 VC17)...; Check: IsWin64; Flags: runhidden waituntilterminated
 
 
 [Code]
