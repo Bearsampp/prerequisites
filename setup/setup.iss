@@ -1,7 +1,7 @@
 #define appId = "@PREREQ_ID@"
 #define appName "@PREREQ_NAME@"
 #define appVersion "@PREREQ_RELEASE@"
-#define appPublisher "N6REJ"
+#define appPublisher "Bearsampp"
 #define appURL "https://bearsampp.com/"
 #define currentYear GetDateTimeString('yyyy', '', '');
 
