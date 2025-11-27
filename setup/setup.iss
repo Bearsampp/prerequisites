@@ -1,7 +1,7 @@
 #define appId = "@PREREQ_ID@"
 #define appName "@PREREQ_NAME@"
 #define appVersion "@PREREQ_RELEASE@"
-#define appPublisher "N6REJ"
+#define appPublisher "Bearsampp"
 #define appURL "https://bearsampp.com/"
 #define currentYear GetDateTimeString('yyyy', '', '');
 
@@ -39,7 +39,8 @@ VersionInfoProductName={#appName}
 Name: "english"; MessagesFile: "compiler:Default.isl"
 
 [Files]
-Source: "src\*"; DestDir: "{tmp}\{#appId}"; Flags: ignoreversion recursesubdirs createallsubdirs deleteafterinstall
+Source: "src\*"; DestDir: "{tmp}\{#appId}"; Flags: ignoreversion recursesubdirs createallsubdirs deleteafterinstall; Excludes: "fonts\*"
+Source: "src\fonts\*.ttf"; DestDir: "{autofonts}"; FontInstall: "Cascadia Cove Nerd Font"; Flags: onlyifdoesntexist uninsneveruninstall
 
 [Run]
 Filename: "{tmp}\{#appId}\vcredist_2015_2022\vc_redist.x86.exe"; Parameters: "/passive /norestart"; StatusMsg: Installing Visual C++ 2015-2022 Runtimes x86 (VC15 VC16 VC17)...; Flags: runhidden waituntilterminated

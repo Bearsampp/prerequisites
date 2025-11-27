@@ -1,0 +1,385 @@
+/*
+ * Bearsampp Prerequisites - Gradle Build Script
+ *
+ * This build script handles the build process for Bearsampp Prerequisites installer.
+ * Includes Visual C++ Redistributables and CaskaydiaCove Nerd Font.
+ */
+
+// ============================================================================
+// PLUGINS
+// ============================================================================
+
+plugins {
+    id 'base'
+}
+
+// ============================================================================
+// PROPERTIES AND CONFIGURATION
+// ============================================================================
+
+// Load build.properties
+def buildPropsFile = file('build.properties')
+if (!buildPropsFile.exists()) {
+    throw new GradleException("build.properties not found at: ${buildPropsFile.absolutePath}")
+}
+
+def buildProps = new Properties()
+buildPropsFile.withInputStream { buildProps.load(it) }
+
+// Prerequisites configuration from build.properties
+ext.prereqRelease = buildProps.getProperty('prerequisites.release', '2025.7.31')
+ext.prereqId = buildProps.getProperty('prerequisites.id', 'prerequisites')
+ext.prereqName = buildProps.getProperty('prerequisites.name', 'Bearsampp Prerequisites Package')
+ext.prereqSetupName = buildProps.getProperty('prerequisites.setupname', "Bearsampp-prerequisites-${prereqRelease}")
+    .replace('${prerequisites.release}', prereqRelease)
+
+// Root/dev path configuration
+def rootDir = file("${projectDir}/..").canonicalFile
+def devPath = file("${rootDir}/dev")
+
+// Define project paths
+ext.projectBasedir = projectDir.absolutePath
+ext.rootDirPath = rootDir.absolutePath
+
+// Build base path resolution priority:
+// 1) build.properties (build.path)
+// 2) Environment variable BEARSAMPP_BUILD_PATH
+// 3) Default to {root}/bearsampp-build
+def buildPathFromProps = (buildProps.getProperty('build.path', '') ?: '').trim()
+def buildPathFromEnv = System.getenv('BEARSAMPP_BUILD_PATH') ?: ''
+def defaultBuildPath = "${rootDir}/bearsampp-build"
+ext.buildBasePath = buildPathFromProps ? buildPathFromProps : (buildPathFromEnv ? buildPathFromEnv : defaultBuildPath)
+
+// Verify dev directory exists
+if (!devPath.exists()) {
+    throw new GradleException("Project 'dev' not found in ${devPath}")
+}
+
+println "Bearsampp dev found in ${devPath}"
+
+// Build paths
+ext.buildTmpPath = file("${buildBasePath}/tmp")
+ext.prereqTmpPath = file("${buildTmpPath}/prerequisites")
+ext.prereqDestPath = file("${buildBasePath}/prerequisites")
+
+// Source paths
+ext.prereqSrcPath = file("${projectDir}/src")
+ext.prereqSetupPath = file("${projectDir}/setup")
+
+// Inno Setup path (from dev/bin/lib)
+// Note: Tool paths are available via rootProject.ext.innosetupCompiler when used as a subproject
+ext.innosetupPath = file("${devPath}/bin/lib/innosetup")
+ext.isccExe = file("${innosetupPath}/ISCC.exe")
+
+// ============================================================================
+// HELPER FUNCTIONS
+// ============================================================================
+
+/**
+ * Generate hash files for a file
+ */
+def generateHashFiles(File file) {
+    if (!file.exists()) {
+        throw new GradleException("File not found for hashing: ${file}")
+    }
+
+    println "Generating hash files..."
+
+    // Generate MD5
+    def md5File = new File("${file.absolutePath}.md5")
+    def md5Hash = calculateHash(file, 'MD5')
+    md5File.text = "${md5Hash} ${file.name}\n"
+    println "  Created: ${md5File.name}"
+
+    // Generate SHA1
+    def sha1File = new File("${file.absolutePath}.sha1")
+    def sha1Hash = calculateHash(file, 'SHA-1')
+    sha1File.text = "${sha1Hash} ${file.name}\n"
+    println "  Created: ${sha1File.name}"
+
+    // Generate SHA256
+    def sha256File = new File("${file.absolutePath}.sha256")
+    def sha256Hash = calculateHash(file, 'SHA-256')
+    sha256File.text = "${sha256Hash} ${file.name}\n"
+    println "  Created: ${sha256File.name}"
+
+    // Generate SHA512
+    def sha512File = new File("${file.absolutePath}.sha512")
+    def sha512Hash = calculateHash(file, 'SHA-512')
+    sha512File.text = "${sha512Hash} ${file.name}\n"
+    println "  Created: ${sha512File.name}"
+}
+
+/**
+ * Calculate hash for a file
+ */
+def calculateHash(File file, String algorithm) {
+    def digest = java.security.MessageDigest.getInstance(algorithm)
+    file.withInputStream { stream ->
+        def buffer = new byte[8192]
+        def bytesRead
+        while ((bytesRead = stream.read(buffer)) != -1) {
+            digest.update(buffer, 0, bytesRead)
+        }
+    }
+    return digest.digest().collect { String.format('%02x', it) }.join('')
+}
+
+// ============================================================================
+// TASKS
+// ============================================================================
+
+// Task: Display build information
+tasks.register('info') {
+    group = 'help'
+    description = 'Display build information and available tasks'
+
+    doLast {
+        println """
+        ================================================================
+          Bearsampp Prerequisites - Build Information
+        ================================================================
+
+        Prerequisites Configuration:
+          Release:        ${prereqRelease}
+          ID:             ${prereqId}
+          Name:           ${prereqName}
+          Setup Name:     ${prereqSetupName}
+
+        Paths:
+          Project:        ${projectDir}
+          Dev:            ${devPath}
+          Build Base:     ${buildBasePath}
+          Build Tmp:      ${buildTmpPath}
+          Prereq Tmp:     ${prereqTmpPath}
+          Prereq Dest:    ${prereqDestPath}
+          Source:         ${prereqSrcPath}
+          Setup:          ${prereqSetupPath}
+          Inno Setup:     ${isccExe}
+
+        Available Tasks:
+          gradle info              - Show this information
+          gradle release           - Build prerequisites installer
+          gradle clean             - Clean build artifacts
+          gradle verify            - Verify build environment
+
+        Examples:
+          gradle release
+          gradle verify
+
+        ================================================================
+        """.stripIndent()
+    }
+}
+
+// Task: Build prerequisites installer
+tasks.register('release') {
+    group = 'build'
+    description = 'Build prerequisites installer with Inno Setup'
+
+    doLast {
+        println ""
+        println "=".multiply(70)
+        println "Building Bearsampp Prerequisites ${prereqRelease}"
+        println "=".multiply(70)
+        println ""
+
+        // Verify Inno Setup exists
+        if (!isccExe.exists()) {
+            throw new GradleException("Inno Setup not found at: ${isccExe}")
+        }
+
+        println "Using Inno Setup: ${isccExe}"
+        println ""
+
+        // Clean and create temp directory
+        println "Preparing build directory..."
+        if (prereqTmpPath.exists()) {
+            delete prereqTmpPath
+        }
+        prereqTmpPath.mkdirs()
+
+        // Copy source files
+        println "Copying source files..."
+        def tmpSrcPath = file("${prereqTmpPath}/src")
+        tmpSrcPath.mkdirs()
+        copy {
+            from prereqSrcPath
+            into tmpSrcPath
+        }
+
+        // Copy setup files
+        println "Copying setup files..."
+        copy {
+            from prereqSetupPath
+            into prereqTmpPath
+            exclude 'setup.iss'
+        }
+
+        // Process setup.iss with token replacement
+        println "Processing setup.iss..."
+        def setupIssTemplate = file("${prereqSetupPath}/setup.iss")
+        def setupIssOutput = file("${prereqTmpPath}/setup.iss")
+
+        def setupContent = setupIssTemplate.text
+        setupContent = setupContent.replace('@PREREQ_RELEASE@', prereqRelease)
+        setupContent = setupContent.replace('@PREREQ_ID@', prereqId)
+        setupContent = setupContent.replace('@PREREQ_NAME@', prereqName)
+
+        setupIssOutput.text = setupContent
+
+        // Create destination directory
+        prereqDestPath.mkdirs()
+
+        // Build installer with Inno Setup
+        println ""
+        println "Building installer with Inno Setup..."
+        println ""
+
+        def command = [
+            isccExe.absolutePath,
+            "/O${prereqDestPath.absolutePath}",
+            "/F${prereqSetupName}",
+            setupIssOutput.absolutePath
+        ]
+
+        def process = new ProcessBuilder(command as String[])
+            .directory(prereqTmpPath)
+            .redirectErrorStream(true)
+            .start()
+
+        process.inputStream.eachLine { line ->
+            if (line.trim()) println "  ${line}"
+        }
+
+        def exitCode = process.waitFor()
+        if (exitCode != 0) {
+            throw new GradleException("Inno Setup compilation failed with exit code: ${exitCode}")
+        }
+
+        // Generate hash files
+        def installerFile = file("${prereqDestPath}/${prereqSetupName}.exe")
+        if (!installerFile.exists()) {
+            throw new GradleException("Installer not found: ${installerFile}")
+        }
+
+        println ""
+        generateHashFiles(installerFile)
+
+        println ""
+        println "=".multiply(70)
+        println "[SUCCESS] Prerequisites installer built successfully"
+        println "Output: ${installerFile}"
+        println "=".multiply(70)
+    }
+}
+
+// Task: Clean build artifacts
+tasks.named('clean') {
+    group = 'build'
+    description = 'Clean build artifacts and temporary files'
+
+    doLast {
+        // Clean Gradle build directory
+        def buildDir = file("${projectDir}/build")
+        if (buildDir.exists()) {
+            delete buildDir
+        }
+
+        // Clean temp build directory
+        if (prereqTmpPath.exists()) {
+            delete prereqTmpPath
+        }
+
+        println "[SUCCESS] Build artifacts cleaned"
+    }
+}
+
+// Task: Verify build environment
+tasks.register('verify') {
+    group = 'verification'
+    description = 'Verify build environment and dependencies'
+
+    doLast {
+        println "Verifying build environment for prerequisites..."
+
+        def checks = [:]
+
+        // Check Java version
+        def javaVersion = JavaVersion.current()
+        checks['Java 8+'] = javaVersion >= JavaVersion.VERSION_1_8
+
+        // Check required files
+        checks['build.properties'] = file('build.properties').exists()
+        checks['src directory'] = prereqSrcPath.exists()
+        checks['setup directory'] = prereqSetupPath.exists()
+        checks['setup.iss'] = file("${prereqSetupPath}/setup.iss").exists()
+
+        // Check dev directory
+        checks['dev directory'] = file(devPath).exists()
+
+        // Check Inno Setup
+        checks['Inno Setup'] = isccExe.exists()
+
+        // Check for font file
+        def fontFile = file("${prereqSrcPath}/fonts/CaskaydiaCoveNerdFont-Regular.ttf")
+        checks['CaskaydiaCove Nerd Font'] = fontFile.exists()
+
+        // Check for vcredist files
+        def vcredistX86 = file("${prereqSrcPath}/vcredist_2015_2022/VC_redist.x86.exe")
+        def vcredistX64 = file("${prereqSrcPath}/vcredist_2015_2022/VC_redist.x64.exe")
+        checks['VC++ Redist x86'] = vcredistX86.exists()
+        checks['VC++ Redist x64'] = vcredistX64.exists()
+
+        println "\nEnvironment Check Results:"
+        println "-".multiply(60)
+        checks.each { name, passed ->
+            def status = passed ? "[PASS]" : "[FAIL]"
+            println "  ${status.padRight(10)} ${name}"
+        }
+        println "-".multiply(60)
+
+        def allPassed = checks.values().every { it }
+        if (allPassed) {
+            println "\n[SUCCESS] All checks passed! Build environment is ready."
+            println "\nYou can now run:"
+            println "  gradle release   - Build prerequisites installer"
+        } else {
+            println "\n[WARNING] Some checks failed. Please review the requirements."
+
+            if (!checks['Inno Setup']) {
+                println "\nInno Setup not found at: ${isccExe}"
+            }
+            if (!checks['CaskaydiaCove Nerd Font']) {
+                println "\nCaskaydiaCove Nerd Font not found."
+                println "Download from: https://github.com/ryanoasis/nerd-fonts/releases/latest"
+                println "Place CaskaydiaCoveNerdFont-Regular.ttf in: ${prereqSrcPath}/fonts/"
+            }
+            if (!checks['VC++ Redist x86'] || !checks['VC++ Redist x64']) {
+                println "\nVisual C++ Redistributables not found."
+                println "Download from: https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist"
+                println "Place in: ${prereqSrcPath}/vcredist_2015_2022/"
+            }
+
+            throw new GradleException("Build environment verification failed")
+        }
+    }
+}
+
+// ============================================================================
+// BUILD LIFECYCLE HOOKS
+// ============================================================================
+
+gradle.taskGraph.whenReady { graph ->
+    println """
+    ================================================================
+      Bearsampp Prerequisites - Gradle Build
+    ================================================================
+    """.stripIndent()
+}
+
+// ============================================================================
+// DEFAULT TASK
+// ============================================================================
+
+defaultTasks 'info'

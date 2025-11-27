@@ -1,6 +1,8 @@
 This setup provides all the prerequisites required for Bearsampp :
 
 - Visual C++ 2015-2022 Runtimes (VC14 VC15 VC16 VC17)
+-  CaskaydiaCove Nerd Font
 
 Website : https://bearsampp.com
 Github  : https://github.com/Bearsampp/Bearsampp
+Issues  : https://github.com/Bearsampp/Bearsampp/issues
