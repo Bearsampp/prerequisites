@@ -65,6 +65,13 @@ ext.prereqDestPath = file("${buildBasePath}/prerequisites")
 // Source paths
 ext.prereqSrcPath = file("${projectDir}/src")
 ext.prereqSetupPath = file("${projectDir}/setup")
+ext.vcRedistPath = file("${prereqSrcPath}/vcredist_2015_2022")
+
+// VC Redistributable URLs
+ext.vcRedistX86Url = 'https://aka.ms/vs/17/release/vc_redist.x86.exe'
+ext.vcRedistX64Url = 'https://aka.ms/vs/17/release/vc_redist.x64.exe'
+ext.vcRedistX86File = file("${vcRedistPath}/vc_redist.x86.exe")
+ext.vcRedistX64File = file("${vcRedistPath}/vc_redist.x64.exe")
 
 // Inno Setup path (from dev/bin/lib)
 // Note: Tool paths are available via rootProject.ext.innosetupCompiler when used as a subproject
@@ -129,6 +136,77 @@ def calculateHash(File file, String algorithm) {
 // TASKS
 // ============================================================================
 
+// Task: Download VC Redistributables
+tasks.register('downloadVcRedist') {
+    group = 'build'
+    description = 'Download Visual C++ Redistributables from Microsoft'
+
+    doLast {
+        println ""
+        println "=".multiply(70)
+        println "Downloading Visual C++ Redistributables"
+        println "=".multiply(70)
+        println ""
+
+        // Create vcredist directory if it doesn't exist
+        if (!vcRedistPath.exists()) {
+            vcRedistPath.mkdirs()
+            println "Created directory: ${vcRedistPath}"
+        }
+
+        // Download x86 redistributable
+        println "Downloading x86 redistributable..."
+        println "  URL: ${vcRedistX86Url}"
+        println "  Destination: ${vcRedistX86File}"
+        
+        try {
+            def x86Url = new URL(vcRedistX86Url)
+            x86Url.openConnection().with { conn ->
+                conn.instanceFollowRedirects = true
+                conn.setRequestProperty('User-Agent', 'Mozilla/5.0')
+                conn.connect()
+                
+                if (conn.responseCode == 200 || conn.responseCode == 302 || conn.responseCode == 301) {
+                    vcRedistX86File.bytes = conn.inputStream.bytes
+                    println "  [SUCCESS] Downloaded: ${vcRedistX86File.name} (${(vcRedistX86File.size() / 1024 / 1024).toInteger()} MB)"
+                } else {
+                    throw new GradleException("Failed to download x86 redistributable. HTTP ${conn.responseCode}")
+                }
+            }
+        } catch (Exception e) {
+            throw new GradleException("Error downloading x86 redistributable: ${e.message}")
+        }
+
+        // Download x64 redistributable
+        println "Downloading x64 redistributable..."
+        println "  URL: ${vcRedistX64Url}"
+        println "  Destination: ${vcRedistX64File}"
+        
+        try {
+            def x64Url = new URL(vcRedistX64Url)
+            x64Url.openConnection().with { conn ->
+                conn.instanceFollowRedirects = true
+                conn.setRequestProperty('User-Agent', 'Mozilla/5.0')
+                conn.connect()
+                
+                if (conn.responseCode == 200 || conn.responseCode == 302 || conn.responseCode == 301) {
+                    vcRedistX64File.bytes = conn.inputStream.bytes
+                    println "  [SUCCESS] Downloaded: ${vcRedistX64File.name} (${(vcRedistX64File.size() / 1024 / 1024).toInteger()} MB)"
+                } else {
+                    throw new GradleException("Failed to download x64 redistributable. HTTP ${conn.responseCode}")
+                }
+            }
+        } catch (Exception e) {
+            throw new GradleException("Error downloading x64 redistributable: ${e.message}")
+        }
+
+        println ""
+        println "=".multiply(70)
+        println "[SUCCESS] Visual C++ Redistributables downloaded successfully"
+        println "=".multiply(70)
+    }
+}
+
 // Task: Display build information
 tasks.register('info') {
     group = 'help'
@@ -176,6 +254,7 @@ tasks.register('info') {
 tasks.register('release') {
     group = 'build'
     description = 'Build prerequisites installer with Inno Setup'
+    dependsOn 'downloadVcRedist'
 
     doLast {
         println ""
