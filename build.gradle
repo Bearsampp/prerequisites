@@ -325,11 +325,8 @@ tasks.register('verify') {
         def fontFile = file("${prereqSrcPath}/fonts/CaskaydiaCoveNerdFont-Regular.ttf")
         checks['CaskaydiaCove Nerd Font'] = fontFile.exists()
 
-        // Check for vcredist files
-        def vcredistX86 = file("${prereqSrcPath}/vcredist_2015_2022/VC_redist.x86.exe")
-        def vcredistX64 = file("${prereqSrcPath}/vcredist_2015_2022/VC_redist.x64.exe")
-        checks['VC++ Redist x86'] = vcredistX86.exists()
-        checks['VC++ Redist x64'] = vcredistX64.exists()
+        // Note: VC++ Redistributables are now downloaded dynamically from Microsoft
+        checks['VC++ Redist (Dynamic Download)'] = true
 
         println "\nEnvironment Check Results:"
         println "-".multiply(60)
@@ -354,11 +351,6 @@ tasks.register('verify') {
                 println "\nCaskaydiaCove Nerd Font not found."
                 println "Download from: https://github.com/ryanoasis/nerd-fonts/releases/latest"
                 println "Place CaskaydiaCoveNerdFont-Regular.ttf in: ${prereqSrcPath}/fonts/"
-            }
-            if (!checks['VC++ Redist x86'] || !checks['VC++ Redist x64']) {
-                println "\nVisual C++ Redistributables not found."
-                println "Download from: https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist"
-                println "Place in: ${prereqSrcPath}/vcredist_2015_2022/"
             }
 
             throw new GradleException("Build environment verification failed")
