@@ -401,8 +401,8 @@ tasks.register('verify') {
         checks['Inno Setup'] = isccExe.exists()
 
         // Check for font file
-        def fontFile = file("${prereqSrcPath}/fonts/CaskaydiaCoveNerdFont-Regular.ttf")
-        checks['CaskaydiaCove Nerd Font'] = fontFile.exists()
+        def fontFile = file("${prereqSrcPath}/fonts/CaskaydiaMonoCoveNerdFont-Regular.ttf")
+        checks['CaskaydiaCove Mono Nerd Font'] = fontFile.exists()
 
         // Note: VC++ Redistributables are now downloaded dynamically from Microsoft
         checks['VC++ Redist (Dynamic Download)'] = true
@@ -426,10 +426,10 @@ tasks.register('verify') {
             if (!checks['Inno Setup']) {
                 println "\nInno Setup not found at: ${isccExe}"
             }
-            if (!checks['CaskaydiaCove Nerd Font']) {
+            if (!checks['CaskaydiaCove Mono Nerd Font']) {
                 println "\nCaskaydiaCove Nerd Font not found."
                 println "Download from: https://github.com/ryanoasis/nerd-fonts/releases/latest"
-                println "Place CaskaydiaCoveNerdFont-Regular.ttf in: ${prereqSrcPath}/fonts/"
+                println "Place CaskaydiaMonoCoveNerdFont-Regular.ttf in: ${prereqSrcPath}/fonts/"
             }
 
             throw new GradleException("Build environment verification failed")
